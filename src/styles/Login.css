@@ -1,0 +1,52 @@
+.login-card {
+  width: 100%;
+  max-width: 350px;
+}
+.logo-img {
+  width: 180px;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+.right-img {
+  width: 100%;
+  max-width: 550px;   
+  height: auto;
+}
+.custom-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 100px; 
+}
+
+.left-side,
+.right-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-img {
+  max-width: 350px;
+  width: 100%;
+}
+.key-icon-img {
+  width: 20px; 
+  height: 20px;
+  object-fit: contain;
+}
+.mt-custom {
+  margin-top: 24px; 
+}
+.login-description {
+  text-align: center;
+  color: #6c757d;
+  font-size: 14px;
+  line-height: 24px;  
+  max-width: 320px;    
+  margin: 20px auto 0 auto;
+}
