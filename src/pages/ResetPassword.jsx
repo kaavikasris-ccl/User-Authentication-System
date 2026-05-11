@@ -19,7 +19,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email) return alert("Login again");
@@ -33,8 +33,7 @@ const ResetPassword = () => {
       if (data.message === "Password updated successfully") {
         navigate("/");
       }
-
-    } catch (err: any) {
+    } catch (err) {
       alert(err.message);
     }
   };
@@ -43,7 +42,7 @@ const ResetPassword = () => {
     <div className="container-fluid vh-100">
       <div className="row h-100">
 
-        <AuthCard 
+        <AuthCard
           title={
             <div className="d-flex align-items-center justify-content-center">
               <span className="me-2">Reset Password</span>

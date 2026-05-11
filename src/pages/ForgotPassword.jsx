@@ -19,7 +19,7 @@ const ForgotPassword = () => {
 
   const isEmailValid = email && email.includes("@");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -30,8 +30,7 @@ const ForgotPassword = () => {
       if (data.message === "OTP sent") {
         navigate("/reset-password", { state: { email } });
       }
-
-    } catch (err: any) {
+    } catch (err) {
       alert(err.message);
     }
   };
@@ -90,7 +89,7 @@ const ForgotPassword = () => {
             <p className="text-center mt-3">
               <Link to="/">Back to Login</Link>
             </p>
-          </form>
+          </form>aaaaaaaaaaaaaaaaaaaa
         </AuthCard>
 
         <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center">

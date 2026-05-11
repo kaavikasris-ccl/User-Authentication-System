@@ -24,9 +24,10 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const isEmailValid = email && email.includes("@") && email.includes(".");
+  const isEmailValid =
+    email && email.includes("@") && email.includes(".");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setEmailError("");
@@ -51,9 +52,12 @@ const Login = () => {
 
       alert("Login Successful");
       navigate("/");
-
-    } catch (err: any) {
-      setEmailError(err.message || "Server error");
+    } catch (err) {
+      if (err instanceof Error) {
+        setEmailError(err.message);
+      } else {
+        setEmailError("Server error");
+      }
     }
   };
 
@@ -61,11 +65,21 @@ const Login = () => {
     <div className="container-fluid vh-100">
       <div className="row h-100 g-0">
 
-        <AuthCard title="Welcome Back" subtitle="Please enter your details" logo={logo}>
+        <AuthCard
+          title="Welcome Back"
+          subtitle="Please enter your details"
+          logo={logo}
+        >
           <form onSubmit={handleSubmit}>
 
+            {/* Email */}
             <div className="form-floating mb-3 position-relative">
-              <img src={vectorImg} className="position-absolute top-50 start-0 translate-middle-y ms-3" style={{ width: 20 }} />
+              <img
+                src={vectorImg}
+                alt="email icon"
+                className="position-absolute top-50 start-0 translate-middle-y ms-3"
+                style={{ width: 20 }}
+              />
 
               <input
                 type="email"
@@ -79,14 +93,23 @@ const Login = () => {
               <label className="ps-5">Email Address</label>
 
               {isEmailValid && (
-                <img src={tickImg} className="position-absolute top-50 end-0 translate-middle-y me-3" style={{ width: 18 }} />
+                <img
+                  src={tickImg}
+                  alt="valid"
+                  className="position-absolute top-50 end-0 translate-middle-y me-3"
+                  style={{ width: 18 }}
+                />
               )}
             </div>
 
-            {emailError && <small className="text-danger">{emailError}</small>}
+            {emailError && (
+              <small className="text-danger">{emailError}</small>
+            )}
 
-            <div className="mb-2">
+            {/* Password */}
+            <div className="mb-2 mt-3">
               <label>Password</label>
+
               <div className="position-relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -94,26 +117,36 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+
                 <i
-                  className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"} position-absolute top-50 end-0 translate-middle-y me-3`}
+                  role="button"
+                  className={`fa ${
+                    showPassword ? "fa-eye-slash" : "fa-eye"
+                  } position-absolute top-50 end-0 translate-middle-y me-3`}
                   onClick={() => setShowPassword(!showPassword)}
                 ></i>
               </div>
             </div>
 
-            {passwordError && <small className="text-danger">{passwordError}</small>}
+            {passwordError && (
+              <small className="text-danger">{passwordError}</small>
+            )}
 
-            <button className="btn btn-primary w-100 mt-2">Continue</button>
+            {/* Submit */}
+            <button className="btn btn-primary w-100 mt-3">
+              Continue
+            </button>
 
+            {/* Forgot Password */}
             <p className="text-center mt-3">
               <Link to="/forgot-password">Forgot Password?</Link>
             </p>
-
           </form>
         </AuthCard>
 
+        {/* Right Image */}
         <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center">
-          <img src={img} className="right-img" />
+          <img src={img} alt="login visual" className="right-img" />
         </div>
 
       </div>

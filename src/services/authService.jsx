@@ -1,6 +1,12 @@
+const BASE_URL = "http://localhost:5000";
 
-export const loginUser = async (email: string, password: string) => {
-  const response = await fetch("http://localhost:5000/login", {
+/**
+ * --------------------
+ * LOGIN USER
+ * --------------------
+ */
+export const loginUser = async (email, password) => {
+  const response = await fetch(`${BASE_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,8 +23,13 @@ export const loginUser = async (email: string, password: string) => {
   return data;
 };
 
-export const forgotPassword = async (email: string) => {
-  const response = await fetch("http://localhost:5000/forgot-password", {
+/**
+ * --------------------
+ * FORGOT PASSWORD
+ * --------------------
+ */
+export const forgotPassword = async (email) => {
+  const response = await fetch(`${BASE_URL}/forgot-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,12 +46,13 @@ export const forgotPassword = async (email: string) => {
   return data;
 };
 
-export const resetPassword = async (
-  email: string,
-  oldPassword: string,
-  newPassword: string
-) => {
-  const response = await fetch("http://localhost:5000/reset-password", {
+/**
+ * --------------------
+ * RESET PASSWORD
+ * --------------------
+ */
+export const resetPassword = async (email, oldPassword, newPassword) => {
+  const response = await fetch(`${BASE_URL}/reset-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
