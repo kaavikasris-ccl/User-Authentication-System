@@ -89,7 +89,7 @@ const ForgotPassword = () => {
             <p className="text-center mt-3">
               <Link to="/">Back to Login</Link>
             </p>
-          </form>aaaaaaaaaaaaaaaaaaaa
+          </form>
         </AuthCard>
 
         <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center">

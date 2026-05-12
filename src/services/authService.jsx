@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:3000";
 
 /**
  * --------------------
@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:5000";
  * --------------------
  */
 export const loginUser = async (email, password) => {
-  const response = await fetch(`${BASE_URL}/login`, {
+  const response = await fetch(`${BASE_URL}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const loginUser = async (email, password) => {
  * --------------------
  */
 export const forgotPassword = async (email) => {
-  const response = await fetch(`${BASE_URL}/forgot-password`, {
+  const response = await fetch(`${BASE_URL}/api/auth/forgot-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export const forgotPassword = async (email) => {
  * --------------------
  */
 export const resetPassword = async (email, oldPassword, newPassword) => {
-  const response = await fetch(`${BASE_URL}/reset-password`, {
+  const response = await fetch(`${BASE_URL}/api/auth/reset-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

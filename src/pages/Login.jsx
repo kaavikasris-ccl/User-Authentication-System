@@ -51,7 +51,7 @@ const Login = () => {
       }
 
       alert("Login Successful");
-      navigate("/");
+      navigate("dashboard.jsx");
     } catch (err) {
       if (err instanceof Error) {
         setEmailError(err.message);
