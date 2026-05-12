@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthCard from "@/components/AuthCard";
 import { forgotPassword } from "@/services/authService";
@@ -25,18 +27,32 @@ const ForgotPassword = () => {
     try {
       const data = await forgotPassword(email);
 
-      alert(data.message);
+      toast.success(`Your OTP is: ${data.otp}`, {
+        position: "top-right",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
 
-      if (data.message === "OTP sent") {
+      setTimeout(() => {
         navigate("/reset-password", { state: { email } });
-      }
+      }, 2000);
+
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message, {
+        position: "top-right",
+        autoClose: 5000,
+      });
     }
   };
 
   return (
     <div className="container-fluid vh-100">
+
+      <ToastContainer />
+
       <div className="row h-100">
 
         <AuthCard

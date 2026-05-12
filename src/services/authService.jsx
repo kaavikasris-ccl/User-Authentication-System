@@ -1,9 +1,7 @@
 const BASE_URL = "http://localhost:3000";
 
 /**
- * --------------------
  * LOGIN USER
- * --------------------
  */
 export const loginUser = async (email, password) => {
   const response = await fetch(`${BASE_URL}/api/auth/login`, {
@@ -24,9 +22,7 @@ export const loginUser = async (email, password) => {
 };
 
 /**
- * --------------------
  * FORGOT PASSWORD
- * --------------------
  */
 export const forgotPassword = async (email) => {
   const response = await fetch(`${BASE_URL}/api/auth/forgot-password`, {
@@ -47,9 +43,32 @@ export const forgotPassword = async (email) => {
 };
 
 /**
- * --------------------
- * RESET PASSWORD
- * --------------------
+ * VERIFY OTP + SET NEW PASSWORD ← ADD THIS
+ */
+export const verifyOtp = async (email, otp, newPassword) => {
+  const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,        // ← flat fields, not nested
+      otp,
+      newPassword,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to verify OTP");
+  }
+
+  return data;
+};
+
+/**
+ * RESET PASSWORD (old password flow)
  */
 export const resetPassword = async (email, oldPassword, newPassword) => {
   const response = await fetch(`${BASE_URL}/api/auth/reset-password`, {

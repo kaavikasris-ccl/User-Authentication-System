@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthCard from "@/components/AuthCard";
-import { resetPassword } from "@/services/authService";
+
+import { verifyOtp } from "@/services/authService";
 
 import keyImg from "@/assets/key.png";
 import logo from "@/assets/crystallogo.png";
@@ -12,34 +15,56 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/Login.css";
 
 const ResetPassword = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
-  const email = localStorage.getItem("email");
+  const location = useLocation();
+  const email = location.state?.email;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) return alert("Login again");
-    if (password !== confirmPassword) return alert("Passwords mismatch");
+    if (!email) {
+      toast.error("Session expired. Please try again.", {
+        position: "top-right",
+      });
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match!", {
+        position: "top-right",
+      });
+      return;
+    }
 
     try {
-      const data = await resetPassword(email, oldPassword, password);
+      const data = await resetPassword({
+        email,
+        otp,
+        newPassword,
+      });
 
-      alert(data.message);
+      toast.success("Password updated successfully!", {
+        position: "top-right",
+      });
 
-      if (data.message === "Password updated successfully") {
+      setTimeout(() => {
         navigate("/");
-      }
+      }, 2000);
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message, {
+        position: "top-right",
+      });
     }
   };
 
   return (
     <div className="container-fluid vh-100">
+      <ToastContainer />
+
       <div className="row h-100">
 
         <AuthCard
@@ -58,22 +83,26 @@ const ResetPassword = () => {
         >
           <form onSubmit={handleSubmit}>
 
+            {/* OTP FIELD */}
             <input
-              type="password"
+              type="text"
               className="form-control mb-2"
-              placeholder="Old Password"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              maxLength={6}
             />
 
+            {/* NEW PASSWORD */}
             <input
               type="password"
               className="form-control mb-2"
               placeholder="New Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
 
+            {/* CONFIRM PASSWORD */}
             <input
               type="password"
               className="form-control mb-3"
@@ -82,7 +111,11 @@ const ResetPassword = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
 
-            <button className="btn btn-primary w-100">
+            {/* SUBMIT BUTTON */}
+            <button
+              className="btn btn-primary w-100"
+              disabled={otp.length !== 6}
+            >
               Update Password
             </button>
 
