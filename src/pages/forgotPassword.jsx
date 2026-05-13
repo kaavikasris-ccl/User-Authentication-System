@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthCard from "@/components/AuthCard";
+import AuthCard from "@/components/authCard";
 import { forgotPassword } from "@/services/authService";
 
 import keyImg from "@/assets/key.png";
@@ -13,7 +13,7 @@ import img from "@/assets/frame.png";
 import tickImg from "@/assets/tick.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "@/styles/Login.css";
+import "@/styles/login.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

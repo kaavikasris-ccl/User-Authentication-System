@@ -1,0 +1,27 @@
+.dashboard-container {
+  min-height: 100vh;
+  width: 100%;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  text-align: center;
+  color: black; /* VERY IMPORTANT */
+  min-width: 300px;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 26px;
+  cursor: pointer;
+}

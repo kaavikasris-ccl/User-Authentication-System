@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import AuthCard from "@/components/AuthCard";
+import AuthCard from "@/components/authCard";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "@/styles/Login.css";
+import "@/styles/login.css";
 
 import { validateEmail, validatePassword } from "@/utils/validation";
 import { Link, useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ const Login = () => {
       }
 
       alert("Login Successful");
-      navigate("dashboard.jsx");
+      navigate("/dashboard");
     } catch (err) {
       if (err instanceof Error) {
         setEmailError(err.message);

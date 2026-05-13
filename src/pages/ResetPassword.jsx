@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthCard from "@/components/AuthCard";
+import AuthCard from "@/components/authCard";
 
 import { verifyOtp } from "@/services/authService";
 
@@ -12,7 +12,7 @@ import logo from "@/assets/crystallogo.png";
 import img from "@/assets/resetpassword.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "@/styles/Login.css";
+import "@/styles/login.css";
 
 const ResetPassword = () => {
   const [otp, setOtp] = useState("");

@@ -1,23 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import "@/styles/dashboard.scss";
 
 const Dashboard = () => {
   const email = localStorage.getItem("email");
+  const navigate = useNavigate();
 
   return (
-    <div className="container mt-5">
-      <div className="card p-4 shadow">
+    <div className="dashboard-container">
 
-        <h1>Dashboard </h1>
-
-        <p className="mt-3">
-          Login Successful
-        </p>
-
-        <h5>
-          Welcome: {email}
-        </h5>
-
+      <div className="back-arrow" onClick={() => navigate("/login")}>
+        ←
       </div>
+
+      <div className="dashboard-card">
+        <h1>Welcome to Dashboard</h1>
+        <p>Login Successful</p>
+        <h3>Email: {email}</h3>
+      </div>
+
     </div>
   );
 };
