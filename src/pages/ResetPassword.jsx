@@ -41,11 +41,8 @@ const ResetPassword = () => {
     }
 
     try {
-      const data = await resetPassword({
-        email,
-        otp,
-        newPassword,
-      });
+      const data = await verifyOtp(email, otp, newPassword);
+
 
       toast.success("Password updated successfully!", {
         position: "top-right",
