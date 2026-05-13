@@ -16,7 +16,6 @@ const Dashboard = () => {
       <div className="dashboard-card">
         <h1>Welcome to Dashboard</h1>
         <p>Login Successful</p>
-        <h3>Email: {email}</h3>
       </div>
 
     </div>
