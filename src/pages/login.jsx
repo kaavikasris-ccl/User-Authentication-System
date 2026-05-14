@@ -47,8 +47,7 @@ const Login = () => {
 
       console.log("LOGIN RESPONSE:", data);
 
-      // SAFE TOKEN EXTRACTION
-      const token = data?.token?.token;
+      const token = data?.token;
 
       if (!token) {
         setEmailError("Login failed: token not received");
@@ -93,7 +92,6 @@ const Login = () => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
 
               <label className="ps-5">Email Address</label>

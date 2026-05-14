@@ -4,6 +4,7 @@ import Login from "@/pages/login";
 import ForgotPassword from "@/pages/forgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/dashboard";
+import "@/styles/validation.scss";
 
 import ProtectedRoute from "@/components/protectRoute"; 
 
