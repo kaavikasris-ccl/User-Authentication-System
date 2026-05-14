@@ -36,25 +36,25 @@ export const forgotPassword = async (email) => {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || "Failed to send reset link");
+    throw new Error(data.message || "Failed to send OTP");
   }
 
   return data;
 };
 
 /**
- * VERIFY OTP + SET NEW PASSWORD ← ADD THIS
+ * VERIFY OTP + SET NEW PASSWORD
  */
-export const verifyOtp = async (email, otp, new_password) => {
+export const verifyOtp = async (email, otp, newPassword) => {
   const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email,        // ← flat fields, not nested
-      otp:Number(otp),
-      new_password,
+      email,
+      otp: Number(otp),   // ← convert to number
+      newPassword,
     }),
   });
 
@@ -68,25 +68,21 @@ export const verifyOtp = async (email, otp, new_password) => {
 };
 
 /**
- * RESET PASSWORD (old password flow)
+ * REGISTER USER
  */
-export const resetPassword = async (email, oldPassword, new_password) => {
-  const response = await fetch(`${BASE_URL}/api/auth/reset-password`, {
+export const registerUser = async (email, password) => {
+  const response = await fetch(`${BASE_URL}/api/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      email,
-      oldPassword,
-      new_password,
-    }),
+    body: JSON.stringify({ email, password }),
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || "Failed to reset password");
+    throw new Error(data.message || "Registration failed");
   }
 
   return data;

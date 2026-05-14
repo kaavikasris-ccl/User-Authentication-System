@@ -45,19 +45,25 @@ const Login = () => {
     try {
       const data = await loginUser(email, password);
 
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("email", email);
+      console.log("LOGIN RESPONSE:", data);
+
+      // SAFE TOKEN EXTRACTION
+      const token = data?.token?.token;
+
+      if (!token) {
+        setEmailError("Login failed: token not received");
+        return;
       }
 
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", email);
+
       alert("Login Successful");
+
       navigate("/dashboard");
+
     } catch (err) {
-      if (err instanceof Error) {
-        setEmailError(err.message);
-      } else {
-        setEmailError("Server error");
-      }
+      setEmailError(err?.message || "Server error");
     }
   };
 
