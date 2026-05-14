@@ -16,7 +16,7 @@ import "@/styles/login.css";
 
 const ResetPassword = () => {
   const [otp, setOtp] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [new_password, setNew_password] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const ResetPassword = () => {
       return;
     }
 
-    if (newPassword !== confirmPassword) {
+    if (new_password !== confirmPassword) {
       toast.error("Passwords do not match!", {
         position: "top-right",
       });
@@ -41,7 +41,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const data = await verifyOtp(email, otp, newPassword);
+      const data = await verifyOtp(email, otp, new_password);
 
 
       toast.success("Password updated successfully!", {
@@ -95,8 +95,8 @@ const ResetPassword = () => {
               type="password"
               className="form-control mb-2"
               placeholder="New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              value={new_password}
+              onChange={(e) => setNew_password(e.target.value)}
             />
 
             {/* CONFIRM PASSWORD */}

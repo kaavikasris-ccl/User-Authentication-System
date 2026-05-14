@@ -45,7 +45,7 @@ export const forgotPassword = async (email) => {
 /**
  * VERIFY OTP + SET NEW PASSWORD ← ADD THIS
  */
-export const verifyOtp = async (email, otp, newPassword) => {
+export const verifyOtp = async (email, otp, new_password) => {
   const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
     method: "POST",
     headers: {
@@ -53,8 +53,8 @@ export const verifyOtp = async (email, otp, newPassword) => {
     },
     body: JSON.stringify({
       email,        // ← flat fields, not nested
-      otp,
-      newPassword,
+      otp:Number(otp),
+      new_password,
     }),
   });
 
@@ -70,7 +70,7 @@ export const verifyOtp = async (email, otp, newPassword) => {
 /**
  * RESET PASSWORD (old password flow)
  */
-export const resetPassword = async (email, oldPassword, newPassword) => {
+export const resetPassword = async (email, oldPassword, new_password) => {
   const response = await fetch(`${BASE_URL}/api/auth/reset-password`, {
     method: "POST",
     headers: {
@@ -79,7 +79,7 @@ export const resetPassword = async (email, oldPassword, newPassword) => {
     body: JSON.stringify({
       email,
       oldPassword,
-      newPassword,
+      new_password,
     }),
   });
 
