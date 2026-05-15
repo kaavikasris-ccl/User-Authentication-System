@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import AuthCard from "@/components/authCard";
 import { forgotPassword } from "@/services/authService";
@@ -16,31 +15,31 @@ import tickImg from "@/assets/tick.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/login.css";
-import "@/styles/validation.scss"; // 👈 IMPORTANT
+import "@/styles/validation.scss";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [touched, setTouched] = useState(false);
+
   const navigate = useNavigate();
 
+  //  VALIDATION
   const emailError = validateEmail(email);
-
   const isValid = email.length > 0 && !emailError;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTouched(true);
 
-    if (emailError || !email) {
-      toast.error(emailError || "Email is required");
-      return;
-    }
+    if (!email || emailError) return;
 
     try {
-      const data = await forgotPassword(email);
+      await forgotPassword(email);
 
-      toast.success(`OTP sent! Check console/email`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.success(`OTP is: ${data.otp}`, {
+      position: "top-right",
+      autoClose: 10000,
+});
 
       setTimeout(() => {
         navigate("/reset-password", { state: { email } });
@@ -69,8 +68,8 @@ const ForgotPassword = () => {
         >
           <form onSubmit={handleSubmit}>
 
-            {/* EMAIL */}
-            <div className="form-floating mb-3 position-relative">
+            {/* EMAIL INPUT */}
+            <div className="form-floating mb-1 position-relative">
 
               <img
                 src={vectorImg}
@@ -82,19 +81,21 @@ const ForgotPassword = () => {
               <input
                 type="email"
                 className={`form-control ps-5 pe-5 rounded-3 ${
-                  email.length === 0
-                    ? ""
-                    : isValid
-                    ? "input-valid"
-                    : "input-invalid"
+                  touched
+                    ? isValid
+                      ? "input-valid"
+                      : "input-invalid"
+                    : ""
                 }`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={() => setTouched(true)}
                 placeholder="Email"
               />
 
               <label className="ps-5">Email Address</label>
 
+              {/* VALID TICK */}
               {isValid && (
                 <img
                   src={tickImg}
@@ -105,9 +106,11 @@ const ForgotPassword = () => {
               )}
             </div>
 
-            {/* ERROR TEXT */}
-            {email.length > 0 && emailError && (
-              <small className="text-danger">{emailError}</small>
+            {/*  ERROR MESSAGE (LIKE LOGIN PAGE) */}
+            {touched && emailError && (
+              <small className="text-danger d-block mt-1">
+                {emailError}
+              </small>
             )}
 
             {/* BUTTON */}
